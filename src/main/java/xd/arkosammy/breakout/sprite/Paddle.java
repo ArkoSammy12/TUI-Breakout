@@ -15,9 +15,9 @@ public class Paddle extends AbstractSprite {
 
         double[] newCoordinate;
         if(direction == Direction.LEFT){
-            newCoordinate = new double[]{this.coordinate[0] - 1, this.coordinate[1]};
+            newCoordinate = new double[]{this.coordinate[0] - 2, this.coordinate[1]};
         } else {
-            newCoordinate = new double[]{this.coordinate[0] + 1, this.coordinate[1]};
+            newCoordinate = new double[]{this.coordinate[0] + 2, this.coordinate[1]};
         }
 
         for(int i = (int) Math.round(newCoordinate[0]); i < Math.round(newCoordinate[0]) + dimensions[0]; i++){
