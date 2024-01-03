@@ -43,6 +43,10 @@ public class Ball extends AbstractSprite {
 
     private void checkPaddleCollision(BreakoutGame game){
 
+        if(this.velocity.isUpwardsVelocity()){
+            return;
+        }
+
         int x = (int) Math.round(this.coordinate[0]);
         int y = (int) Math.round(this.coordinate[1]);
         int coordinateCheckIndex = -1;
@@ -89,7 +93,9 @@ public class Ball extends AbstractSprite {
                 if(this.velocity == Velocity.DOWN){
                     this.velocity = Velocity.UP_LEFT_LOW;
                 } else {
+                    System.out.println(this.velocity);
                     this.velocity = this.velocity.getFlipped();
+                    System.out.println("Section 1 flipped");
                 }
             }
             case MIDDLE_LEFT -> {
@@ -98,6 +104,7 @@ public class Ball extends AbstractSprite {
                 } else {
                     this.velocity = this.velocity.getYFlipped();
                 }
+                System.out.println("Section 2");
             }
             case MIDDLE -> this.velocity = Velocity.UP;
             case MIDDLE_RIGHT -> {
@@ -234,6 +241,13 @@ public class Ball extends AbstractSprite {
 
         public double[] addToPosition(double[] subPixel){
             return new double[]{subPixel[0] + this.vector[0], subPixel[1] + this.vector[1]};
+        }
+
+        boolean isUpwardsVelocity(){
+            return switch(this){
+                case UP, UP_RIGHT_HIGH, UP_RIGHT_STRAIGHT, UP_RIGHT_LOW, UP_LEFT_HIGH, UP_LEFT_STRAIGHT, UP_LEFT_LOW -> true;
+                case DOWN, DOWN_RIGHT_HIGH, DOWN_RIGHT_STRAIGHT, DOWN_RIGHT_LOW, DOWN_LEFT_HIGH, DOWN_LEFT_STRAIGHT, DOWN_LEFT_LOW -> false;
+            };
         }
 
         Velocity getYFlipped(){
