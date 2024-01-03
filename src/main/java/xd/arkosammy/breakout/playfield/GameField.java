@@ -71,7 +71,7 @@ public class GameField implements ScreenDrawable {
             this.maxWidth = maxWidth;
         }
 
-        public FieldBuilder withMapRow(String mapString){
+        public FieldBuilder withFieldRow(String mapString){
             if(mapString.length() != this.maxWidth){
                 throw new IllegalArgumentException();
             }
