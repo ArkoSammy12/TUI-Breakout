@@ -52,7 +52,6 @@ public class Paddle extends AbstractSprite {
 
         int sectionLength = this.dimensions[0] / 5;
         int paddleX = (int) Math.round(this.coordinate[0]);
-        int paddleXEnd = paddleX + this.dimensions[0];
 
         for(int section = 0; section < 4; section++){
             for(int xPos = paddleX + (sectionLength * section); xPos < (paddleX + (sectionLength * section)) + sectionLength; xPos++){
@@ -72,21 +71,11 @@ public class Paddle extends AbstractSprite {
     }
 
     public enum PaddleSection {
-        ONE(1),
-        TWO(2),
-        THREE(3),
-        FOUR(4),
-        FIVE(5);
-
-        private int value;
-
-        PaddleSection(int value){
-            this.value = value;
-        }
-
-        public int getValue(){
-            return this.value;
-        }
+        ONE,
+        TWO,
+        THREE,
+        FOUR,
+        FIVE;
 
         public static PaddleSection fromNumber(int n){
             return switch(n){

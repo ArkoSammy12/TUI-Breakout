@@ -16,7 +16,7 @@ import java.util.List;
 
 public class BreakoutGame {
 
-    private static final int FRAME_DELAY = 40;
+    private static final int FRAME_DELAY = 20;
     private static BreakoutGame instance;
     private final List<AbstractSprite> sprites = new ArrayList<>();
     private final GameScreen gameScreen;
@@ -64,7 +64,7 @@ public class BreakoutGame {
 
     public void startLoop() throws IOException, InterruptedException {
 
-        while(true){
+        while(shouldKeepRunning()){
 
             this.gameScreen.submitScreenElement(this.gameField);
             this.sprites.forEach(sprite -> sprite.tick(this));
@@ -75,7 +75,7 @@ public class BreakoutGame {
 
         }
 
-        //this.onGameFinished();
+        this.onGameFinished();
 
     }
 
@@ -107,7 +107,6 @@ public class BreakoutGame {
     private void onGameFinished() throws IOException {
         this.sprites.removeIf(sprite -> sprite instanceof Ball);
         this.gameScreen.displayEndingScreen(this, this.won);
-        this.gameScreen.close();
     }
 
     public static void checkInput(GameScreen gameScreen) throws IOException {

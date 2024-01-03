@@ -4,7 +4,6 @@ import xd.arkosammy.breakout.BreakoutGame;
 import xd.arkosammy.breakout.screen.ScreenElement;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class Ball extends AbstractSprite {
@@ -12,7 +11,7 @@ public class Ball extends AbstractSprite {
     private Velocity velocity;
     public Ball(double[] coordinate, int[] dimensions) {
         super(coordinate, dimensions);
-        this.velocity = Velocity.DOWN_LEFT_LOW;
+        this.velocity = Velocity.DOWN;
     }
 
     public void move(){

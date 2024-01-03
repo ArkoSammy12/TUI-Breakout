@@ -40,12 +40,6 @@ public class GameScreen {
         this.screenElements.addAll(drawable.getScreenElements());
     }
 
-    public void submitAllScreenElements(List<ScreenDrawable> drawables){
-        for(ScreenDrawable drawable : drawables){
-            this.screenElements.addAll(drawable.getScreenElements());
-        }
-    }
-
     public void refreshDisplay(BreakoutGame game) throws IOException {
 
         int xOffset = game.getGameField().getXCoordinate();
@@ -77,17 +71,13 @@ public class GameScreen {
             }
         }
         TextGraphics scoreText = this.terminalScreen.newTextGraphics();
-        scoreText.putString(0, 0, String.format("You %s! .Score = %d", won ? "won" : "lost", game.getScore()));
+        scoreText.putString(0, 0, String.format("You %s! Score = %d", won ? "won" : "lost", game.getScore()));
         for(ScreenElement e : this.screenElements){
             TextCharacter character = new TextCharacter(e.elementType().getGraphic());
             this.terminalScreen.setCharacter(e.xCoordinate() + xOffset, e.yCoordinate() + yOffset + 1, character);
         }
         this.terminalScreen.refresh();
         this.clearScreenElements();
-    }
-
-    public void close() throws IOException {
-        this.terminalScreen.close();
     }
 
 }
