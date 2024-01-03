@@ -14,7 +14,8 @@ public class Main {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         executorService.submit(new PlayerInputHandler(game.getGameScreen()));
         game.startLoop();
-        executorService.shutdown();
+        executorService.shutdownNow();
+        executorService.close();
 
     }
 
