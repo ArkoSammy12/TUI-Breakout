@@ -280,16 +280,16 @@ public class Ball extends AbstractSprite {
                 case UP_RIGHT_HIGH -> DOWN_LEFT_HIGH;
                 case UP_RIGHT_STRAIGHT -> DOWN_LEFT_STRAIGHT;
                 case UP_RIGHT_LOW -> DOWN_LEFT_LOW;
-                case UP_LEFT_HIGH -> UP_RIGHT_HIGH;
-                case UP_LEFT_STRAIGHT -> UP_RIGHT_STRAIGHT;
-                case UP_LEFT_LOW -> UP_RIGHT_LOW;
+                case UP_LEFT_HIGH -> DOWN_RIGHT_HIGH;
+                case UP_LEFT_STRAIGHT -> DOWN_RIGHT_STRAIGHT;
+                case UP_LEFT_LOW -> DOWN_RIGHT_LOW;
                 case DOWN -> UP;
                 case DOWN_RIGHT_HIGH -> UP_LEFT_HIGH;
                 case DOWN_RIGHT_STRAIGHT -> UP_LEFT_STRAIGHT;
                 case DOWN_RIGHT_LOW -> UP_LEFT_LOW;
-                case DOWN_LEFT_HIGH -> DOWN_RIGHT_HIGH;
-                case DOWN_LEFT_STRAIGHT -> DOWN_RIGHT_STRAIGHT;
-                case DOWN_LEFT_LOW -> DOWN_RIGHT_LOW;
+                case DOWN_LEFT_HIGH -> UP_RIGHT_HIGH;
+                case DOWN_LEFT_STRAIGHT -> UP_RIGHT_STRAIGHT;
+                case DOWN_LEFT_LOW -> UP_RIGHT_LOW;
             };
         }
 
