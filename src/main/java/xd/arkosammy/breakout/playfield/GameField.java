@@ -50,15 +50,12 @@ public class GameField implements ScreenDrawable {
     }
 
     public ScreenElement getMapElementAt(int x, int y){
-
         char mapElement = this.mapStrings.get(y).charAt(x);
-
         if(mapElement == '#'){
             return new ScreenElement(x, y, ScreenElement.ElementType.WALL);
         } else {
             return new ScreenElement(x, y, ScreenElement.ElementType.BACKGROUND);
         }
-
     }
 
     public static class FieldBuilder {
@@ -66,7 +63,6 @@ public class GameField implements ScreenDrawable {
         private final int xCoordinate;
         private final int yCoordinate;
         private final int maxWidth;
-
         private final List<String> mapStrings = new ArrayList<>();
 
         public FieldBuilder(int xCoordinate, int yCoordinate, int maxWidth){
@@ -86,7 +82,6 @@ public class GameField implements ScreenDrawable {
         public GameField create(){
             return new GameField(this.xCoordinate, this.yCoordinate, this.mapStrings, maxWidth);
         }
-
 
     }
 

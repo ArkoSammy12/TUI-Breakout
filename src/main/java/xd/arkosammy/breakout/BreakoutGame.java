@@ -12,18 +12,18 @@ import xd.arkosammy.breakout.sprite.Paddle;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class BreakoutGame {
 
     private static final int FRAME_DELAY = 40;
     private static BreakoutGame instance;
-    private List<AbstractSprite> sprites = new ArrayList<>();
+    private final List<AbstractSprite> sprites = new ArrayList<>();
     private final GameScreen gameScreen;
     private GameField gameField;
     private int score;
     private boolean running = true;
+    private boolean won = false;
 
 
     private BreakoutGame() throws IOException {
@@ -53,9 +53,18 @@ public class BreakoutGame {
         return this.score;
     }
 
+    public Paddle getPaddle(){
+        for(AbstractSprite sprite : this.sprites){
+            if(sprite instanceof Paddle paddle){
+                return paddle;
+            }
+        }
+        return null;
+    }
+
     public void startLoop() throws IOException, InterruptedException {
 
-        while(running){
+        while(true){
 
             this.gameScreen.submitScreenElement(this.gameField);
             this.sprites.forEach(sprite -> sprite.tick(this));
@@ -66,6 +75,39 @@ public class BreakoutGame {
 
         }
 
+        //this.onGameFinished();
+
+    }
+
+    private boolean shouldKeepRunning(){
+        int ballY = 0;
+        int paddleY = 0;
+        int bricks = 0;
+        for(AbstractSprite sprite : this.sprites){
+            if(sprite instanceof Ball ball){
+                ballY = (int) Math.round(ball.getCoordinate()[1]);
+            } else if (sprite instanceof Paddle paddle) {
+                paddleY = (int) Math.round(paddle.getCoordinate()[1]);
+            } else if (sprite instanceof Brick){
+                bricks++;
+            }
+        }
+        if(ballY >= paddleY){
+            running = false;
+            return false;
+        }
+        if(bricks == 0){
+            running = false;
+            won = true;
+            return false;
+        }
+        return true;
+    }
+
+    private void onGameFinished() throws IOException {
+        this.sprites.removeIf(sprite -> sprite instanceof Ball);
+        this.gameScreen.displayEndingScreen(this, this.won);
+        this.gameScreen.close();
     }
 
     public static void checkInput(GameScreen gameScreen) throws IOException {
@@ -117,24 +159,25 @@ public class BreakoutGame {
         int currentX = 2;
         int currentY = 2;
 
-        for(int i = 0; i < 10; i++){
-            for(int j = 0; j < 3; j++) {
-                AbstractSprite brick = new Brick(new double[]{currentY, currentX}, new int[]{9, 3});
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 10; j++) {
+                AbstractSprite brick = new Brick(new double[]{currentX, currentY}, new int[]{Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT});
                 this.sprites.add(brick);
-                currentX += 4;
+                currentX += brick.getDimensions()[0] + 1;
             }
-            currentY += 10;
+            currentY += Brick.BRICK_HEIGHT + 1;
             currentX = 2;
         }
         sprites.add(new Ball(new double[]{50, 40}, new int[]{1, 1}));
     }
 
-    public void deleteBrickAt(int x, int y){
+    public void removeBrickAt(int x, int y){
         for (AbstractSprite abstractSprite : this.sprites) {
             if (abstractSprite instanceof Brick brick) {
                 for (ScreenElement element : brick.getScreenElements()) {
-                    if (element.xCoordinate() == x && element.yCoordinate() == y) {
+                    if (element.xCoordinate() == x && element.yCoordinate() == y && brick.shouldExist()) {
                         abstractSprite.markForRemoval();
+                        score++;
                         return;
                     }
                 }
