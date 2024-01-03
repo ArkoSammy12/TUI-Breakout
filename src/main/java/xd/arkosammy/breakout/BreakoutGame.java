@@ -150,7 +150,7 @@ public class BreakoutGame {
 
     private void initializeSprites(){
 
-        sprites.add(new Paddle(new double[]{50, 49}, new int[]{5, 1}));
+        sprites.add(new Paddle(new double[]{47, 49}, new int[]{5, 1}));
 
         int currentX = 2;
         int currentY = 2;
