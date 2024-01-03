@@ -22,7 +22,6 @@ public class BreakoutGame {
     private final GameScreen gameScreen;
     private GameField gameField;
     private int score;
-    private boolean running = true;
     private boolean won = false;
 
 
@@ -93,11 +92,9 @@ public class BreakoutGame {
             }
         }
         if(ballY >= paddleY){
-            running = false;
             return false;
         }
         if(bricks == 0){
-            running = false;
             won = true;
             return false;
         }
