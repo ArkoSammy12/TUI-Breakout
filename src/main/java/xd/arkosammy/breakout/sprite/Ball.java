@@ -80,40 +80,38 @@ public class Ball extends AbstractSprite {
         if(paddle == null){
             return;
         }
-
-        Paddle.PaddleSection section = paddle.getCollidingPaddleSection(coordinateChecks[coordinateCheckIndex][0]);
-
-        if(section != null) {
-            switch (section) {
-
-                case ONE -> {
-                    if(this.velocity == Velocity.DOWN){
-                        this.velocity = Velocity.UP_LEFT_LOW;
-                    } else {
-                        this.velocity = this.velocity.getFlipped();
-                    }
+        Paddle.PaddleSection paddleSection = paddle.getCollidingPaddleSection(coordinateChecks[coordinateCheckIndex][0]);
+        if(paddleSection == null){
+            return;
+        }
+        switch (paddleSection) {
+            case LEFT_EDGE -> {
+                if(this.velocity == Velocity.DOWN){
+                    this.velocity = Velocity.UP_LEFT_LOW;
+                } else {
+                    this.velocity = this.velocity.getFlipped();
                 }
-                case TWO -> {
-                    if(this.velocity == Velocity.DOWN){
-                        this.velocity = Velocity.UP_LEFT_HIGH;
-                    } else {
-                        this.velocity = this.velocity.getYFlipped();
-                    }
+            }
+            case MIDDLE_LEFT -> {
+                if(this.velocity == Velocity.DOWN){
+                    this.velocity = Velocity.UP_LEFT_HIGH;
+                } else {
+                    this.velocity = this.velocity.getYFlipped();
                 }
-                case THREE -> this.velocity = Velocity.UP;
-                case FOUR -> {
-                    if(this.velocity == Velocity.DOWN){
-                        this.velocity = Velocity.UP_RIGHT_HIGH;
-                    } else {
-                        this.velocity = this.velocity.getYFlipped();
-                    }
+            }
+            case MIDDLE -> this.velocity = Velocity.UP;
+            case MIDDLE_RIGHT -> {
+                if(this.velocity == Velocity.DOWN){
+                    this.velocity = Velocity.UP_RIGHT_HIGH;
+                } else {
+                    this.velocity = this.velocity.getYFlipped();
                 }
-                case FIVE -> {
-                    if(this.velocity == Velocity.DOWN){
-                        this.velocity = Velocity.UP_RIGHT_LOW;
-                    } else {
-                        this.velocity = this.velocity.getFlipped();
-                    }
+            }
+            case RIGHT_EDGE -> {
+                if(this.velocity == Velocity.DOWN){
+                    this.velocity = Velocity.UP_RIGHT_LOW;
+                } else {
+                    this.velocity = this.velocity.getFlipped();
                 }
 
             }

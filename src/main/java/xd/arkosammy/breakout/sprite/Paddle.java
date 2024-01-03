@@ -53,7 +53,7 @@ public class Paddle extends AbstractSprite {
         int sectionLength = this.dimensions[0] / 5;
         int paddleX = (int) Math.round(this.coordinate[0]);
 
-        for(int section = 0; section < 4; section++){
+        for(int section = 0; section < 5; section++){
             for(int xPos = paddleX + (sectionLength * section); xPos < (paddleX + (sectionLength * section)) + sectionLength; xPos++){
                 if(xPos == xCoordinate){
                     return PaddleSection.fromNumber(section + 1);
@@ -67,24 +67,24 @@ public class Paddle extends AbstractSprite {
 
     public enum Direction {
         LEFT,
-        RIGHT;
+        RIGHT
     }
 
     public enum PaddleSection {
-        ONE,
-        TWO,
-        THREE,
-        FOUR,
-        FIVE;
+        LEFT_EDGE,
+        MIDDLE_LEFT,
+        MIDDLE,
+        MIDDLE_RIGHT,
+        RIGHT_EDGE;
 
         public static PaddleSection fromNumber(int n){
             return switch(n){
 
-                case 1 -> ONE;
-                case 2 -> TWO;
-                case 3 -> THREE;
-                case 4 -> FOUR;
-                case 5 -> FIVE;
+                case 1 -> LEFT_EDGE;
+                case 2 -> MIDDLE_LEFT;
+                case 3 -> MIDDLE;
+                case 4 -> MIDDLE_RIGHT;
+                case 5 -> RIGHT_EDGE;
                 default -> throw new IllegalArgumentException();
 
             };
