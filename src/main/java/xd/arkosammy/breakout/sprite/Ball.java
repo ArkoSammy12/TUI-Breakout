@@ -65,9 +65,7 @@ public class Ball extends AbstractSprite {
             int xCheck = coordinateCheck[0];
             int yCheck = coordinateCheck[1];
 
-            if(xCheck < 0 || xCheck >= game.getGameField().getMapWidth() || yCheck < 0 || yCheck >= game.getGameField().getMapHeight()){
-                continue;
-            }
+            if(game.isPositionOutOfBounds(xCheck, yCheck)) continue;
             ScreenElement element = game.getElementAt(xCheck, yCheck);
             if(element.elementType() == ScreenElement.ElementType.PADDLE){
                 hitPaddle = true;

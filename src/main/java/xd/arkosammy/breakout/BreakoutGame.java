@@ -181,6 +181,10 @@ public class BreakoutGame {
         }
     }
 
+    public boolean isPositionOutOfBounds(int x, int y){
+        return x < 0 || x >= this.getGameField().getMapWidth() || y < 0 || y >= this.getGameField().getMapHeight();
+    }
+
     private void createMap(){
 
         gameField = new GameField.FieldBuilder(30, 0, 103)

@@ -11,7 +11,7 @@ public class Paddle extends AbstractSprite {
         super(coordinate, dimensions);
     }
 
-    public void move(Direction direction, BreakoutGame breakoutGame){
+    public void move(Direction direction, BreakoutGame game){
 
         double[] newCoordinate;
         if(direction == Direction.LEFT){
@@ -22,8 +22,9 @@ public class Paddle extends AbstractSprite {
 
         for(int i = (int) Math.round(newCoordinate[0]); i < Math.round(newCoordinate[0]) + dimensions[0]; i++){
             for(int j = (int) Math.round(newCoordinate[1]); j < Math.round(newCoordinate[1]) + dimensions[1]; j++){
-                ScreenElement element = breakoutGame.getElementAt(i, j);
-                if(element.elementType() != ScreenElement.ElementType.BACKGROUND && element.elementType() != ScreenElement.ElementType.PADDLE){
+                if (game.isPositionOutOfBounds(i, j)) continue;
+                ScreenElement element = game.getElementAt(i, j);
+                if(element.elementType() == ScreenElement.ElementType.WALL){
                     return;
                 }
             }
