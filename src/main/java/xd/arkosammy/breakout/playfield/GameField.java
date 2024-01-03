@@ -10,9 +10,7 @@ public class GameField implements ScreenDrawable {
 
     private final int xCoordinate;
     private final int yCoordinate;
-
     private final int width;
-
     private final int height;
     private final List<String> mapStrings;
 
@@ -65,11 +63,11 @@ public class GameField implements ScreenDrawable {
 
     public static class FieldBuilder {
 
-        private int xCoordinate;
-        private int yCoordinate;
-        private int maxWidth;
+        private final int xCoordinate;
+        private final int yCoordinate;
+        private final int maxWidth;
 
-        private List<String> mapStrings = new ArrayList<>();
+        private final List<String> mapStrings = new ArrayList<>();
 
         public FieldBuilder(int xCoordinate, int yCoordinate, int maxWidth){
             this.xCoordinate = xCoordinate;

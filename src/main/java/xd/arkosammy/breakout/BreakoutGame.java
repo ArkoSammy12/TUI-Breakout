@@ -59,7 +59,7 @@ public class BreakoutGame {
 
             this.gameScreen.submitScreenElement(this.gameField);
             this.sprites.forEach(sprite -> sprite.tick(this));
-            //this.sprites.removeIf(sprite -> !sprite.shouldExist());
+            this.sprites.removeIf(sprite -> !sprite.shouldExist());
             this.sprites.forEach(this.gameScreen::submitScreenElement);
             this.gameScreen.refreshDisplay(this);
             Thread.sleep(FRAME_DELAY);
@@ -86,7 +86,6 @@ public class BreakoutGame {
             };
 
             if(moveDirection != null){
-
                 for(AbstractSprite sprite : BreakoutGame.getInstance().sprites){
                     if(sprite instanceof Paddle paddle){
                         paddle.move(moveDirection, BreakoutGame.getInstance());
@@ -103,8 +102,7 @@ public class BreakoutGame {
         for(AbstractSprite sprite : this.sprites){
             for(ScreenElement element : sprite.getScreenElements()){
                 if(element.xCoordinate() == x && element.yCoordinate() == y){
-                    sprite.markForRemoval();
-                    break;
+                    return element;
                 }
             }
         }
@@ -120,44 +118,28 @@ public class BreakoutGame {
         int currentY = 2;
 
         for(int i = 0; i < 10; i++){
-
-
             for(int j = 0; j < 3; j++) {
                 AbstractSprite brick = new Brick(new double[]{currentY, currentX}, new int[]{9, 3});
                 this.sprites.add(brick);
                 currentX += 4;
-
             }
-
             currentY += 10;
             currentX = 2;
-
-
         }
-
         sprites.add(new Ball(new double[]{50, 40}, new int[]{1, 1}));
-
     }
 
     public void deleteBrickAt(int x, int y){
-
-        Iterator<AbstractSprite> abstractSpriteIterator = this.sprites.iterator();
-        while(abstractSpriteIterator.hasNext()){
-
-            AbstractSprite abstractSprite = abstractSpriteIterator.next();
-            if(abstractSprite instanceof Brick brick){
-                for(ScreenElement element : brick.getScreenElements()){
-                    if(element.xCoordinate() == x && element.yCoordinate() == y){
-                        abstractSpriteIterator.remove();
+        for (AbstractSprite abstractSprite : this.sprites) {
+            if (abstractSprite instanceof Brick brick) {
+                for (ScreenElement element : brick.getScreenElements()) {
+                    if (element.xCoordinate() == x && element.yCoordinate() == y) {
+                        abstractSprite.markForRemoval();
                         return;
                     }
-
                 }
-
             }
-
         }
-
     }
 
     private void createMap(){

@@ -42,9 +42,6 @@ public abstract class AbstractSprite implements ScreenDrawable {
     @Override
     abstract public List<ScreenElement> getScreenElements();
 
-    public static int[] subPixelToPixelCoordinate(int[] subPixel){
-        return new int[]{subPixel[0] * 2, subPixel[1] * 2};
-    }
 
     abstract public void tick(BreakoutGame game);
 

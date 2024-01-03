@@ -79,6 +79,10 @@ public class Ball extends AbstractSprite {
 
             if(element != null && element.elementType() != ScreenElement.ElementType.BACKGROUND && element.elementType() != ScreenElement.ElementType.BALL){
 
+                if(element.elementType() == ScreenElement.ElementType.BRICK){
+                    game.deleteBrickAt(xCheck, yCheck);
+                }
+
                 switch(i){
 
                     case 0 -> collidedCorners[0] = true;
@@ -94,6 +98,14 @@ public class Ball extends AbstractSprite {
 
         }
 
+        Velocity newVelocity = getNewVelocity(sideEdgeCollision, topOrBottomEdgeCollision, collidedCorners);
+        if(newVelocity != null){
+            this.velocity = newVelocity;
+        }
+
+    }
+
+    private Velocity getNewVelocity(boolean sideEdgeCollision, boolean topOrBottomEdgeCollision, boolean[] collidedCorners) {
         Velocity newVelocity = null;
 
         if(sideEdgeCollision || topOrBottomEdgeCollision){
@@ -131,13 +143,8 @@ public class Ball extends AbstractSprite {
             }
 
         }
-
-        if(newVelocity != null){
-            this.velocity = newVelocity;
-        }
-
+        return newVelocity;
     }
-
 
     public enum Velocity {
 
