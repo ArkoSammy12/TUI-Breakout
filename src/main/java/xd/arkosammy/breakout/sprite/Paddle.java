@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Paddle extends AbstractSprite {
+
     public Paddle(double[] coordinate, int[] dimensions) {
         super(coordinate, dimensions);
     }
@@ -30,7 +31,6 @@ public class Paddle extends AbstractSprite {
             }
         }
         this.setCoordinate(newCoordinate);
-
     }
 
     @Override
@@ -86,7 +86,7 @@ public class Paddle extends AbstractSprite {
                 case 3 -> MIDDLE;
                 case 4 -> MIDDLE_RIGHT;
                 case 5 -> RIGHT_EDGE;
-                default -> throw new IllegalArgumentException();
+                default -> throw new IllegalArgumentException("Invalid id number for paddle section");
 
             };
         }

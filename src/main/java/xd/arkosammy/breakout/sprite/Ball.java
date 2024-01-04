@@ -14,13 +14,6 @@ public class Ball extends AbstractSprite {
         this.velocity = Velocity.DOWN;
     }
 
-    public void move(){
-
-        double[] newCoordinate = this.velocity.addToPosition(this.coordinate);
-        this.setCoordinate(newCoordinate);
-
-    }
-
     @Override
     public List<ScreenElement> getScreenElements() {
         List<ScreenElement> screenElements = new ArrayList<>();
@@ -41,6 +34,13 @@ public class Ball extends AbstractSprite {
 
     }
 
+    public void move(){
+
+        double[] newCoordinate = this.velocity.addToPosition(this.coordinate);
+        this.setCoordinate(newCoordinate);
+
+    }
+
     private void checkPaddleCollision(BreakoutGame game){
 
         if(this.velocity.isUpwardsVelocity()){
@@ -50,7 +50,6 @@ public class Ball extends AbstractSprite {
         int x = (int) Math.round(this.coordinate[0]);
         int y = (int) Math.round(this.coordinate[1]);
         int coordinateCheckIndex = -1;
-
         boolean hitPaddle = false;
 
         int[][] coordinateChecks = {
@@ -74,7 +73,6 @@ public class Ball extends AbstractSprite {
             }
 
         }
-
         if(!hitPaddle){
             return;
         }
@@ -91,9 +89,7 @@ public class Ball extends AbstractSprite {
                 if(this.velocity == Velocity.DOWN){
                     this.velocity = Velocity.UP_LEFT_LOW;
                 } else {
-                    System.out.println(this.velocity);
                     this.velocity = this.velocity.getFlipped();
-                    System.out.println("Section 1 flipped");
                 }
             }
             case MIDDLE_LEFT -> {
@@ -102,7 +98,6 @@ public class Ball extends AbstractSprite {
                 } else {
                     this.velocity = this.velocity.getYFlipped();
                 }
-                System.out.println("Section 2");
             }
             case MIDDLE -> this.velocity = Velocity.UP;
             case MIDDLE_RIGHT -> {
@@ -149,9 +144,7 @@ public class Ball extends AbstractSprite {
             int[] coordinateCheck = coordinateChecks[i];
             int xCheck = coordinateCheck[0];
             int yCheck = coordinateCheck[1];
-            if(xCheck < 0 || xCheck >= game.getGameField().getMapWidth() || yCheck < 0 || yCheck >= game.getGameField().getMapHeight()){
-                continue;
-            }
+            if(game.isPositionOutOfBounds(xCheck, yCheck)) continue;
             ScreenElement element = game.getElementAt(xCheck, yCheck);
             if(element != null && (element.elementType() == ScreenElement.ElementType.BRICK || element.elementType() == ScreenElement.ElementType.WALL)){
                 if(element.elementType() == ScreenElement.ElementType.BRICK) {
@@ -171,7 +164,6 @@ public class Ball extends AbstractSprite {
             }
 
         }
-
         Velocity newVelocity = getNewVelocityForBrickCollision(sideEdgeCollision, topOrBottomEdgeCollision, collidedCorners);
         if(newVelocity != null){
             this.velocity = newVelocity;
@@ -181,7 +173,6 @@ public class Ball extends AbstractSprite {
 
     private Velocity getNewVelocityForBrickCollision(boolean sideEdgeCollision, boolean topOrBottomEdgeCollision, boolean[] collidedCorners) {
         Velocity newVelocity = null;
-
         if(sideEdgeCollision || topOrBottomEdgeCollision){
             if(sideEdgeCollision && topOrBottomEdgeCollision){
                 newVelocity = this.velocity.getFlipped();
@@ -190,7 +181,6 @@ public class Ball extends AbstractSprite {
             } else {
                 newVelocity = this.velocity.getYFlipped();
             }
-
         } else {
             int cornerCollisions = 0;
             for(boolean cornerCollision : collidedCorners){
@@ -242,14 +232,14 @@ public class Ball extends AbstractSprite {
         }
 
         boolean isUpwardsVelocity(){
-            return switch(this){
+            return switch (this) {
                 case UP, UP_RIGHT_HIGH, UP_RIGHT_STRAIGHT, UP_RIGHT_LOW, UP_LEFT_HIGH, UP_LEFT_STRAIGHT, UP_LEFT_LOW -> true;
                 case DOWN, DOWN_RIGHT_HIGH, DOWN_RIGHT_STRAIGHT, DOWN_RIGHT_LOW, DOWN_LEFT_HIGH, DOWN_LEFT_STRAIGHT, DOWN_LEFT_LOW -> false;
             };
         }
 
         Velocity getYFlipped(){
-            return switch(this){
+            return switch (this) {
                 case UP -> DOWN;
                 case UP_RIGHT_HIGH -> DOWN_RIGHT_HIGH;
                 case UP_RIGHT_STRAIGHT -> DOWN_RIGHT_STRAIGHT;
@@ -268,7 +258,7 @@ public class Ball extends AbstractSprite {
         }
 
         Velocity getXFlipped(){
-            return switch(this){
+            return switch (this) {
                 case UP -> UP;
                 case UP_RIGHT_HIGH -> UP_LEFT_HIGH;
                 case UP_RIGHT_STRAIGHT -> UP_LEFT_STRAIGHT;

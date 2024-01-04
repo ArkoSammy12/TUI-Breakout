@@ -73,7 +73,7 @@ public class GameField implements ScreenDrawable {
 
         public FieldBuilder withFieldRow(String mapString){
             if(mapString.length() != this.maxWidth){
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("Field contains row whose length does not match the set width for the field.");
             }
             this.mapStrings.add(mapString);
             return this;

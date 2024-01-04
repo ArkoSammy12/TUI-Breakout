@@ -24,13 +24,10 @@ public class BreakoutGame {
     private int score;
     private boolean won = false;
 
-
     private BreakoutGame() throws IOException {
-
         this.gameScreen = new GameScreen();
         this.createMap();
         this.initializeSprites();
-
     }
 
     public static BreakoutGame getInstance() throws IOException {
@@ -81,20 +78,19 @@ public class BreakoutGame {
     private boolean shouldKeepRunning(){
         int ballY = 0;
         int paddleY = 0;
-        int bricks = 0;
+        boolean noBricks = true;
         for(AbstractSprite sprite : this.sprites){
-            if(sprite instanceof Ball ball){
-                ballY = (int) Math.round(ball.getCoordinate()[1]);
-            } else if (sprite instanceof Paddle paddle) {
-                paddleY = (int) Math.round(paddle.getCoordinate()[1]);
-            } else if (sprite instanceof Brick){
-                bricks++;
+            switch(sprite){
+                case Ball ball -> ballY = (int) Math.round(ball.getCoordinate()[1]);
+                case Paddle paddle -> paddleY = (int) Math.round(paddle.getCoordinate()[1]);
+                case Brick ignored -> noBricks = false;
+                default -> {}
             }
         }
         if(ballY >= paddleY){
             return false;
         }
-        if(bricks == 0){
+        if(noBricks){
             won = true;
             return false;
         }
@@ -127,6 +123,7 @@ public class BreakoutGame {
                 for(AbstractSprite sprite : BreakoutGame.getInstance().sprites){
                     if(sprite instanceof Paddle paddle){
                         paddle.move(moveDirection, BreakoutGame.getInstance());
+                        return;
                     }
                 }
 
@@ -145,24 +142,24 @@ public class BreakoutGame {
             }
         }
         return this.gameField.getMapElementAt(x, y);
-
     }
 
     private void initializeSprites(){
 
         sprites.add(new Paddle(new double[]{47, 49}, new int[]{5, 1}));
 
-        int currentX = 2;
-        int currentY = 2;
+        int currentBrickX = 2;
+        int currentBrickY = 2;
 
+        // Place bricks on game field
         for(int i = 0; i < 3; i++){
             for(int j = 0; j < 10; j++) {
-                AbstractSprite brick = new Brick(new double[]{currentX, currentY}, new int[]{Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT});
+                AbstractSprite brick = new Brick(new double[]{currentBrickX, currentBrickY}, new int[]{Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT});
                 this.sprites.add(brick);
-                currentX += brick.getDimensions()[0] + 1;
+                currentBrickX += brick.getDimensions()[0] + 1;
             }
-            currentY += Brick.BRICK_HEIGHT + 1;
-            currentX = 2;
+            currentBrickY += Brick.BRICK_HEIGHT + 1;
+            currentBrickX = 2;
         }
         sprites.add(new Ball(new double[]{50, 40}, new int[]{1, 1}));
     }
@@ -172,7 +169,7 @@ public class BreakoutGame {
             if (abstractSprite instanceof Brick brick) {
                 for (ScreenElement element : brick.getScreenElements()) {
                     if (element.xCoordinate() == x && element.yCoordinate() == y && brick.shouldExist()) {
-                        abstractSprite.markForRemoval();
+                        brick.markForRemoval();
                         score++;
                         return;
                     }

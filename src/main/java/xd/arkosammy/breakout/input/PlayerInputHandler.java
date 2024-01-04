@@ -8,6 +8,7 @@ import java.io.IOException;
 public class PlayerInputHandler implements Runnable {
 
     private final GameScreen gameScreen;
+
     public PlayerInputHandler(GameScreen gameScreen){
         this.gameScreen = gameScreen;
     }
