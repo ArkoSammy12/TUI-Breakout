@@ -63,7 +63,7 @@ public class GameScreen {
             }
         }
         TextGraphics scoreText = this.terminalScreen.newTextGraphics();
-        scoreText.putString(0, 0, String.format("Score = %d", game.getScore()));
+        scoreText.putString(0, 0, String.format("Score = %d. a=Move left, q=Move left (slow), d=Move right, e=Move right (slow), esc=Close window", game.getScore()));
         for(ScreenElement e : this.screenElements){
             TextCharacter character = new TextCharacter(e.elementType().getGraphic());
             this.terminalScreen.setCharacter(e.xCoordinate() + xOffset, e.yCoordinate() + yOffset + 1, character);
