@@ -163,7 +163,7 @@ public class BreakoutGame {
             currentBrickY += Brick.BRICK_HEIGHT + 1;
             currentBrickX = 2;
         }
-        sprites.add(new Ball(new double[]{50, 40}, new int[]{1, 1}));
+        sprites.add(new Ball(new double[]{49, 40}, new int[]{1, 1}));
     }
 
     public void removeBrickAt(int x, int y){

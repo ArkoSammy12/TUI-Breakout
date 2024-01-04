@@ -59,7 +59,7 @@ public class GameScreen {
         this.terminalScreen.doResizeIfNecessary();
         for (int i = this.terminalScreen.getTerminalSize().getRows(); i >= 0; i--) {
             for (int j = 0; j < this.terminalScreen.getTerminalSize().getColumns(); j++) {
-                this.terminalScreen.setCharacter(j + xOffset, i + 1 + yOffset, new TextCharacter(' '));
+                this.terminalScreen.setCharacter(j + xOffset, i + yOffset, new TextCharacter(' '));
             }
         }
         TextGraphics scoreText = this.terminalScreen.newTextGraphics();
@@ -79,7 +79,7 @@ public class GameScreen {
         this.terminalScreen.doResizeIfNecessary();
         for (int i = this.terminalScreen.getTerminalSize().getRows(); i >= 0; i--) {
             for (int j = 0; j < this.terminalScreen.getTerminalSize().getColumns(); j++) {
-                this.terminalScreen.setCharacter(j + xOffset, i + 1 + yOffset, new TextCharacter(' '));
+                this.terminalScreen.setCharacter(j + xOffset, i + yOffset, new TextCharacter(' '));
             }
         }
         TextGraphics scoreText = this.terminalScreen.newTextGraphics();
