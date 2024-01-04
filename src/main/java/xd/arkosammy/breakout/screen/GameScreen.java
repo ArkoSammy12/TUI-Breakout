@@ -1,5 +1,6 @@
 package xd.arkosammy.breakout.screen;
 
+import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
@@ -20,7 +21,9 @@ public class GameScreen {
     private final List<ScreenElement> screenElements = new ArrayList<>();
 
     public GameScreen() throws IOException {
-        Terminal terminal = new DefaultTerminalFactory(System.out, System.in, Charset.defaultCharset()).createTerminal();
+
+        TerminalSize terminalSize = new TerminalSize(104, 100);
+        Terminal terminal = new DefaultTerminalFactory(System.out, System.in, Charset.defaultCharset()).setInitialTerminalSize(terminalSize).createTerminalEmulator();
         terminal.setForegroundColor(TextColor.ANSI.WHITE);
         terminal.setBackgroundColor(TextColor.ANSI.BLACK);
         terminal.setCursorVisible(false);

@@ -186,7 +186,7 @@ public class BreakoutGame {
 
     private void createMap(){
 
-        gameField = new GameField.FieldBuilder(30, 0, 103)
+        gameField = new GameField.FieldBuilder(0, 0, 103)
                 .withFieldRow("#######################################################################################################")
                 .withFieldRow("#                                                                                                     #")
                 .withFieldRow("#                                                                                                     #")
