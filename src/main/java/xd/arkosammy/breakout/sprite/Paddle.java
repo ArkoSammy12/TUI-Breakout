@@ -14,12 +14,12 @@ public class Paddle extends AbstractSprite {
 
     public void move(Direction direction, BreakoutGame game){
 
-        double[] newCoordinate;
-        if(direction == Direction.LEFT){
-            newCoordinate = new double[]{this.coordinate[0] - 1.5, this.coordinate[1]};
-        } else {
-            newCoordinate = new double[]{this.coordinate[0] + 1.5, this.coordinate[1]};
-        }
+        double[] newCoordinate = switch (direction) {
+            case LEFT -> new double[]{this.coordinate[0] - 2, this.coordinate[1]};
+            case LEFT_SLOW -> new double[]{this.coordinate[0] - 1, this.coordinate[1]};
+            case RIGHT -> new double[]{this.coordinate[0] + 2, this.coordinate[1]};
+            case RIGHT_SLOW -> new double[]{this.coordinate[0] + 1, this.coordinate[1]};
+        };
 
         for(int i = (int) Math.round(newCoordinate[0]); i < Math.round(newCoordinate[0]) + dimensions[0]; i++){
             for(int j = (int) Math.round(newCoordinate[1]); j < Math.round(newCoordinate[1]) + dimensions[1]; j++){
@@ -68,7 +68,9 @@ public class Paddle extends AbstractSprite {
 
     public enum Direction {
         LEFT,
-        RIGHT
+        LEFT_SLOW,
+        RIGHT,
+        RIGHT_SLOW
     }
 
     public enum PaddleSection {

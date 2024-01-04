@@ -114,7 +114,9 @@ public class BreakoutGame {
             Paddle.Direction moveDirection = switch(character){
 
                 case 'a' -> Paddle.Direction.LEFT;
+                case 'q' -> Paddle.Direction.LEFT_SLOW;
                 case 'd' -> Paddle.Direction.RIGHT;
+                case 'e' -> Paddle.Direction.RIGHT_SLOW;
                 default -> null;
 
             };
