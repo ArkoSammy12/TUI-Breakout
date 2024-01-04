@@ -113,7 +113,6 @@ public class Ball extends AbstractSprite {
                 } else {
                     this.velocity = this.velocity.getFlipped();
                 }
-
             }
         }
 
