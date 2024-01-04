@@ -53,8 +53,8 @@ public class Ball extends AbstractSprite {
         boolean hitPaddle = false;
 
         int[][] coordinateChecks = {
-                {x - 1, y + 1},
                 {x, y + 1},
+                {x - 1, y + 1},
                 {x + 1, y + 1}
         };
 
