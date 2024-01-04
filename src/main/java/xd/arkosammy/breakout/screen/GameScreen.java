@@ -25,14 +25,14 @@ public class GameScreen {
 
     public GameScreen() throws IOException {
 
-        TerminalSize terminalSize = new TerminalSize(104, 100);
         Terminal terminal = new DefaultTerminalFactory(System.out, System.in, Charset.defaultCharset())
-                .setInitialTerminalSize(terminalSize)
+                .setInitialTerminalSize(new TerminalSize(104, 100))
                 .setTerminalEmulatorFrameAutoCloseTrigger(TerminalEmulatorAutoCloseTrigger.CloseOnEscape)
                 .setTerminalEmulatorTitle("Breakout")
-                .setTerminalEmulatorFontConfiguration(AWTTerminalFontConfiguration.newInstance(new Font("MONOSPACED", Font.BOLD, 1)))
+                .setTerminalEmulatorFontConfiguration(AWTTerminalFontConfiguration.newInstance(new Font("Monospaced", Font.BOLD, 1)))
                 .setPreferTerminalEmulator(true)
                 .createTerminal();
+
         terminal.setForegroundColor(TextColor.ANSI.WHITE);
         terminal.setBackgroundColor(TextColor.ANSI.BLACK);
         terminal.setCursorVisible(false);
