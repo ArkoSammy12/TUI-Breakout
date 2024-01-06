@@ -51,7 +51,7 @@ public class Paddle extends AbstractSprite {
 
     public PaddleSection getCollidingPaddleSection(int xCoordinate){
 
-        int sectionLength = this.dimensions[0] / 5;
+        int sectionLength = (int) Math.ceil( (double) this.dimensions[0] / 5);
         int paddleX = (int) Math.round(this.coordinate[0]);
 
         for(int section = 0; section < 5; section++){
